@@ -1,0 +1,39 @@
+# Exemple de config Nginx - a copier vers /etc/nginx/sites-available/token-scanner
+# puis lier avec: ln -s /etc/nginx/sites-available/token-scanner /etc/nginx/sites-enabled/
+# Remplacer TON_DOMAINE.com par le vrai domaine avant de deployer.
+#
+# Apres avoir active ce fichier (nginx -t && systemctl reload nginx), lancer
+# certbot pour activer HTTPS: certbot --nginx -d TON_DOMAINE.com
+# (certbot modifiera ce fichier automatiquement pour ajouter le bloc SSL)
+
+server {
+    listen 80;
+    server_name TON_DOMAINE.com;
+
+    # Frontend Next.js
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # API backend
+    location /api/ {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /health {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_set_header Host $host;
+    }
+}
