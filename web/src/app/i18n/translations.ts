@@ -1,4 +1,4 @@
-export type Locale = "fr" | "ar" | "zh";
+export type Locale = "fr" | "en" | "ar" | "zh";
 
 export interface Dictionary {
   common: {
@@ -136,6 +136,82 @@ export const translations: Record<Locale, Dictionary> = {
           "Détecte les extensions Token-2022 à risque : permanent delegate (vol direct des tokens d'un holder), transfer hook (code arbitraire à chaque transfert), taxe de transfert cachée, comptes gelés par défaut.",
         earlySniperConcentration:
           "Pour les pools récents (< 7 jours) et peu actifs, analyse les premières transactions pour détecter si un petit nombre de wallets a raflé le supply au lancement (sniping/bundling). Neutre pour les tokens plus anciens ou à fort volume - non vérifiable de façon fiable dans ces cas.",
+      },
+    },
+  },
+
+  en: {
+    common: {
+      backToScanner: "← Back to scanner",
+    },
+    home: {
+      title: "Token Scanner",
+      subtitle:
+        "Paste a Solana mint address to check for rug pull/honeypot signals: mint & freeze authority, holder concentration, liquidity lock, risky Token-2022 extensions.",
+      inputPlaceholder: "Mint address (e.g. DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263)",
+      scanButton: "Scan",
+      scanningButton: "Scanning...",
+      disclaimer:
+        "This tool provides automated analysis of public on-chain signals. This is not financial advice and does not guarantee the safety of any token. Always do your own research (DYOR) before investing.",
+      docsLink: "Documentation - how the 7 analysis criteria work",
+      pointsLabel: "points",
+      warningsNote: "technical warning(s) during the scan (see details above if a check is marked unverifiable).",
+      networkError: "Unable to reach the scan server. Please try again in a moment.",
+      unknownError: "Unknown error",
+    },
+    checks: {
+      mintAuthority: "Mint authority",
+      freezeAuthority: "Freeze authority",
+      holderConcentration: "Holder concentration",
+      metadataAuthority: "Metadata mutability",
+      lpLock: "Liquidity lock (LP)",
+      tokenExtensions: "Token-2022 extensions",
+      earlySniperConcentration: "Early buyer concentration",
+    },
+    risk: {
+      LOW: "Low risk",
+      MEDIUM: "Moderate risk",
+      HIGH: "High risk",
+      CRITICAL: "Critical risk",
+    },
+    docs: {
+      title: "Documentation",
+      intro:
+        "Token Scanner is a free tool that analyzes public on-chain signals to detect rug pull or honeypot risks on Solana tokens. Here's exactly how it works.",
+      checksHeading: "The 7 criteria analyzed",
+      checksIntro: "Each scan adds up the score of every check that passes. The total score is out of {max} points.",
+      riskHeading: "Risk levels",
+      riskIntro: "The risk level is calculated from the percentage of the total score obtained:",
+      riskLowFull: "≥ 80% of max score → Low risk",
+      riskMediumFull: "≥ 50% → Moderate risk",
+      riskHighFull: "≥ 20% → High risk",
+      riskCriticalFull: "< 20% → Critical risk",
+      apiHeading: "Using the API directly",
+      apiIntro: "The API is free and open. The full schema (OpenAPI) is available at /api/openapi.json.",
+      limitsHeading: "Known limitations",
+      limit1:
+        "Holder concentration and LP lock checks don't distinguish personal wallets from pool accounts - so a legitimate pool can artificially lower these scores.",
+      limit2:
+        "Early buyer detection only activates for young, low-activity pools - this is a real limitation of the Solana API (it's not possible to walk back the full history of a very active pool without slowing down the scan), not an arbitrary choice.",
+      limit3:
+        "No check simulates an actual buy/sell transaction (honeypot detection via simulation) - that would require a funded wallet or dedicated test infrastructure.",
+      disclaimer:
+        "This tool provides automated analysis of public on-chain signals. This is not financial advice and does not guarantee the safety of any token. Always do your own research (DYOR).",
+      checkDescriptions: {
+        mintAuthority:
+          "Checks whether the mint authority (which can create new tokens) has been revoked. If still active, the creator can dilute the supply at will.",
+        freezeAuthority:
+          "Checks whether the freeze authority (which can lock a token account) has been revoked. If still active, the creator can prevent a holder from selling - a strong honeypot signal.",
+        holderConcentration:
+          "Calculates the share of supply held by the 10 largest accounts. High concentration means a small number of wallets can crash the price by selling.",
+        metadataAuthority:
+          "Checks whether the token's name, symbol, or logo (Metaplex metadata) can still be changed by the creator - a possible vector for deceptive rebranding.",
+        lpLock:
+          "Checks what share of the LP tokens in the main Raydium pool are burned or locked. If the creator keeps control of the liquidity, they can withdraw it (a classic rug pull).",
+        tokenExtensions:
+          "Detects risky Token-2022 extensions: permanent delegate (direct theft of a holder's tokens), transfer hook (arbitrary code on every transfer), hidden transfer tax, accounts frozen by default.",
+        earlySniperConcentration:
+          "For recent (< 7 days) and low-activity pools, analyzes the earliest transactions to detect whether a small number of wallets grabbed most of the supply at launch (sniping/bundling). Neutral for older or high-volume tokens - not reliably verifiable in those cases.",
       },
     },
   },

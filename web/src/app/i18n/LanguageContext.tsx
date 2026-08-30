@@ -14,7 +14,7 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 const STORAGE_KEY = "token-scanner-locale";
 
 function isLocale(value: string | null): value is Locale {
-  return value === "fr" || value === "ar" || value === "zh";
+  return value === "fr" || value === "en" || value === "ar" || value === "zh";
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {

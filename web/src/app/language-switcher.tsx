@@ -5,6 +5,7 @@ import type { Locale } from "./i18n/translations";
 
 const LANGUAGES: { code: Locale; label: string }[] = [
   { code: "fr", label: "FR" },
+  { code: "en", label: "EN" },
   { code: "ar", label: "AR" },
   { code: "zh", label: "中文" },
 ];
