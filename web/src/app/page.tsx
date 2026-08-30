@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ScanForm from "./scan-form";
 
 export default function Home() {
@@ -21,6 +22,13 @@ export default function Home() {
         financier et ne garantit pas la securite d&apos;un token. Fais toujours tes propres recherches (DYOR)
         avant tout investissement.
       </p>
+
+      <Link
+        href="/docs"
+        className="mt-4 text-sm font-medium text-zinc-600 underline underline-offset-2 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+      >
+        Documentation - comment fonctionnent les 7 criteres d&apos;analyse
+      </Link>
     </div>
   );
 }
