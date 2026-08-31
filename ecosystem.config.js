@@ -25,5 +25,18 @@ module.exports = {
       autorestart: true,
       max_memory_restart: "300M",
     },
+    // Stream RTMP en boucle vers pump.fun (voir deploy/stream.sh). Pas
+    // demarre automatiquement par "pm2 start ecosystem.config.js" tant que
+    // RTMP_URL n'est pas dans .env - lancer explicitement avec
+    // "pm2 start ecosystem.config.js --only token-scanner-stream" une fois
+    // la cle de stream disponible.
+    {
+      name: "token-scanner-stream",
+      cwd: __dirname,
+      script: "deploy/stream.sh",
+      autorestart: true,
+      restart_delay: 5000,
+      max_restarts: 50,
+    },
   ],
 };
