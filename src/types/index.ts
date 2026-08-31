@@ -27,6 +27,10 @@ export interface CheckResult {
   maxScore: number;
   details: string;
   raw?: Record<string, unknown>;
+  // false quand le critere n'a pas pu etre evalue (donnee introuvable/non
+  // pertinente) - le check est alors exclu du score (score et maxScore a 0)
+  // plutot que de compter comme un point gagne par defaut. Absent/true sinon.
+  applicable?: boolean;
 }
 
 export interface ScanReport {

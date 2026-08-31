@@ -131,9 +131,10 @@ export const earlySniperCheck: Check = {
     if (pools.length === 0 || !pools[0].openTime) {
       return {
         passed: true,
-        score: this.weight,
-        maxScore: this.weight,
-        details: "Pool ou date de lancement introuvable - analyse du lancement non applicable (score neutre, pas une penalite).",
+        score: 0,
+        maxScore: 0,
+        applicable: false,
+        details: "Pool ou date de lancement introuvable - analyse du lancement non applicable, exclue du score.",
       };
     }
 
@@ -143,9 +144,10 @@ export const earlySniperCheck: Check = {
     if (ageDays > MAX_AGE_DAYS) {
       return {
         passed: true,
-        score: this.weight,
-        maxScore: this.weight,
-        details: `Pool lance il y a ${Math.round(ageDays)} jours - trop ancien pour qu'une analyse du lancement soit pertinente (score neutre).`,
+        score: 0,
+        maxScore: 0,
+        applicable: false,
+        details: `Pool lance il y a ${Math.round(ageDays)} jours - trop ancien pour qu'une analyse du lancement soit pertinente, exclu du score.`,
       };
     }
 
@@ -155,18 +157,20 @@ export const earlySniperCheck: Check = {
     if (!reachedGenesis) {
       return {
         passed: true,
-        score: this.weight,
-        maxScore: this.weight,
-        details: "Volume de transactions trop eleve pour retrouver le lancement de facon fiable dans un temps raisonnable (score neutre, non applicable).",
+        score: 0,
+        maxScore: 0,
+        applicable: false,
+        details: "Volume de transactions trop eleve pour retrouver le lancement de facon fiable dans un temps raisonnable - non applicable, exclu du score.",
       };
     }
 
     if (oldestFirst.length === 0) {
       return {
         passed: true,
-        score: this.weight,
-        maxScore: this.weight,
-        details: "Pool tout juste cree, aucune transaction encore enregistree.",
+        score: 0,
+        maxScore: 0,
+        applicable: false,
+        details: "Pool tout juste cree, aucune transaction encore enregistree - exclu du score.",
       };
     }
 

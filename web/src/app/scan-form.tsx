@@ -107,22 +107,28 @@ export default function ScanForm() {
           </div>
 
           <div className="flex flex-col gap-2">
-            {Object.entries(report.checks).map(([id, check]) => (
-              <div key={id} className="glass-card rounded-lg px-4 py-3">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-medium text-zinc-100">
-                    {check.passed ? "✅" : "⚠️"} {t.checks[id as keyof typeof t.checks] ?? id}
-                  </span>
-                  <span className="text-sm text-zinc-400" dir="ltr">
-                    {check.score} / {check.maxScore}
-                  </span>
+            {Object.entries(report.checks).map(([id, check]) => {
+              const notApplicable = check.applicable === false;
+              return (
+                <div
+                  key={id}
+                  className={`glass-card rounded-lg px-4 py-3 ${notApplicable ? "opacity-60" : ""}`}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-medium text-zinc-100">
+                      {notApplicable ? "➖" : check.passed ? "✅" : "⚠️"} {t.checks[id as keyof typeof t.checks] ?? id}
+                    </span>
+                    <span className="text-sm text-zinc-400" dir="ltr">
+                      {notApplicable ? t.home.notApplicableLabel : `${check.score} / ${check.maxScore}`}
+                    </span>
+                  </div>
+                  {/* Le detail vient de l'API et reste en francais (langue du backend). */}
+                  <p className="mt-1 text-sm text-zinc-400" dir="ltr">
+                    {check.details}
+                  </p>
                 </div>
-                {/* Le detail vient de l'API et reste en francais (langue du backend). */}
-                <p className="mt-1 text-sm text-zinc-400" dir="ltr">
-                  {check.details}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {report.errors.length > 0 && (

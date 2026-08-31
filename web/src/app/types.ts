@@ -6,6 +6,7 @@ export interface CheckResult {
   maxScore: number;
   details: string;
   raw?: Record<string, unknown>;
+  applicable?: boolean;
 }
 
 export interface ScanReport {

@@ -20,6 +20,7 @@ export interface Dictionary {
     disclaimer: string;
     docsLink: string;
     pointsLabel: string;
+    notApplicableLabel: string;
     warningsNote: string;
     networkError: string;
     unknownError: string;
@@ -107,6 +108,7 @@ export const translations: Record<Locale, Dictionary> = {
         "Cet outil fournit une analyse automatisée de signaux on-chain publics. Ce n'est pas un conseil financier et ne garantit pas la sécurité d'un token. Fais toujours tes propres recherches (DYOR) avant tout investissement.",
       docsLink: "Documentation - comment fonctionnent les 7 critères d'analyse",
       pointsLabel: "points",
+      notApplicableLabel: "Non applicable",
       warningsNote:
         "avertissement(s) technique(s) pendant le scan (voir détails ci-dessus si un check est marqué non vérifiable).",
       networkError: "Impossible de contacter le serveur de scan. Réessaie dans un instant.",
@@ -206,6 +208,7 @@ export const translations: Record<Locale, Dictionary> = {
         "This tool provides automated analysis of public on-chain signals. This is not financial advice and does not guarantee the safety of any token. Always do your own research (DYOR) before investing.",
       docsLink: "Documentation - how the 7 analysis criteria work",
       pointsLabel: "points",
+      notApplicableLabel: "Not applicable",
       warningsNote: "technical warning(s) during the scan (see details above if a check is marked unverifiable).",
       networkError: "Unable to reach the scan server. Please try again in a moment.",
       unknownError: "Unknown error",
@@ -304,6 +307,7 @@ export const translations: Record<Locale, Dictionary> = {
         "توفر هذه الأداة تحليلاً آلياً لإشارات علنية على السلسلة. هذه ليست نصيحة مالية ولا تضمن أمان أي توكن. قم دائماً بأبحاثك الخاصة (DYOR) قبل أي استثمار.",
       docsLink: "التوثيق - كيف تعمل معايير التحليل السبعة",
       pointsLabel: "نقطة",
+      notApplicableLabel: "غير قابل للتطبيق",
       warningsNote: "تحذير(ات) تقني(ة) أثناء الفحص (انظر التفاصيل أعلاه إذا كان أحد المعايير غير قابل للتحقق).",
       networkError: "تعذر الاتصال بخادم الفحص. حاول مرة أخرى بعد قليل.",
       unknownError: "خطأ غير معروف",
@@ -402,6 +406,7 @@ export const translations: Record<Locale, Dictionary> = {
         "本工具基于公开链上数据提供自动化分析，不构成财务建议，也不保证任何代币的安全性。投资前请始终自行研究（DYOR）。",
       docsLink: "文档 - 了解七项分析标准的工作原理",
       pointsLabel: "分",
+      notApplicableLabel: "不适用",
       warningsNote: "个技术警告（如果某项检查标记为无法验证，请查看上方详情）。",
       networkError: "无法连接扫描服务器，请稍后重试。",
       unknownError: "未知错误",

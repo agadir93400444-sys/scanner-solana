@@ -1,4 +1,4 @@
-import { CHECK_REGISTRY, MAX_TOTAL_SCORE } from "./registry";
+import { CHECK_REGISTRY } from "./registry";
 import { CheckResult, ScanReport } from "../types";
 
 export function computeRiskLevel(totalScore: number, maxScore: number): ScanReport["riskLevel"] {
@@ -27,14 +27,17 @@ export async function scanToken(mintAddress: string): Promise<ScanReport> {
     }
   }
 
+  // maxScore se calcule sur les checks reellement applicables : un check
+  // exclu (applicable: false) ne doit ni penaliser ni avantager le score.
   const totalScore = Object.values(checks).reduce((sum, r) => sum + r.score, 0);
+  const maxScore = Object.values(checks).reduce((sum, r) => sum + r.maxScore, 0);
 
   return {
     mint: mintAddress,
     timestamp: new Date().toISOString(),
     totalScore,
-    maxScore: MAX_TOTAL_SCORE,
-    riskLevel: computeRiskLevel(totalScore, MAX_TOTAL_SCORE),
+    maxScore,
+    riskLevel: computeRiskLevel(totalScore, maxScore),
     checks,
     errors,
   };
