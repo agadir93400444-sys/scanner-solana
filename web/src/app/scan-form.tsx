@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useEffect, useState, FormEvent } from "react";
+import { useSearchParams } from "next/navigation";
 import type { ScanReport, ApiError } from "./types";
 import { useLanguage } from "./i18n/LanguageContext";
 
@@ -19,22 +20,19 @@ const RISK_STYLES: Record<ScanReport["riskLevel"], string> = {
 
 export default function ScanForm() {
   const { t } = useLanguage();
+  const searchParams = useSearchParams();
   const [mint, setMint] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [report, setReport] = useState<ScanReport | null>(null);
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    const trimmed = mint.trim();
-    if (!trimmed) return;
-
+  async function runScan(mintAddress: string) {
     setLoading(true);
     setError(null);
     setReport(null);
 
     try {
-      const res = await fetch(`${API_URL}/api/scan/${encodeURIComponent(trimmed)}`);
+      const res = await fetch(`${API_URL}/api/scan/${encodeURIComponent(mintAddress)}`);
       const data = await res.json();
 
       if (!res.ok) {
@@ -48,6 +46,24 @@ export default function ScanForm() {
     } finally {
       setLoading(false);
     }
+  }
+
+  useEffect(() => {
+    // Permet aux liens partages (?mint=...) d'ouvrir directement un scan,
+    // notamment ceux postes par le bot X.
+    const fromUrl = searchParams.get("mint")?.trim();
+    if (fromUrl) {
+      setMint(fromUrl);
+      runScan(fromUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    const trimmed = mint.trim();
+    if (!trimmed) return;
+    runScan(trimmed);
   }
 
   return (

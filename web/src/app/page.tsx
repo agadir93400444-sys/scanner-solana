@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import ScanForm from "./scan-form";
 import { useLanguage } from "./i18n/LanguageContext";
@@ -20,7 +21,9 @@ export default function Home() {
       </div>
 
       <div className="relative mt-10 flex w-full flex-col items-center">
-        <ScanForm />
+        <Suspense fallback={null}>
+          <ScanForm />
+        </Suspense>
       </div>
 
       <p className="relative mt-12 max-w-xl text-center text-xs text-zinc-500">{t.home.disclaimer}</p>
