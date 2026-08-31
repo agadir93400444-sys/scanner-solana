@@ -18,7 +18,7 @@ function isLocale(value: string | null): value is Locale {
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("fr");
+  const [locale, setLocaleState] = useState<Locale>("en");
 
   useEffect(() => {
     try {

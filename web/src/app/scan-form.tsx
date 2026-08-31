@@ -11,11 +11,10 @@ import { useLanguage } from "./i18n/LanguageContext";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 const RISK_STYLES: Record<ScanReport["riskLevel"], string> = {
-  LOW: "bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800",
-  MEDIUM:
-    "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800",
-  HIGH: "bg-orange-100 text-orange-800 border-orange-300 dark:bg-orange-950 dark:text-orange-300 dark:border-orange-800",
-  CRITICAL: "bg-red-100 text-red-800 border-red-300 dark:bg-red-950 dark:text-red-300 dark:border-red-800",
+  LOW: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+  MEDIUM: "bg-amber-500/10 text-amber-300 border-amber-500/30",
+  HIGH: "bg-orange-500/10 text-orange-300 border-orange-500/30",
+  CRITICAL: "bg-red-500/10 text-red-300 border-red-500/30",
 };
 
 export default function ScanForm() {
@@ -59,21 +58,23 @@ export default function ScanForm() {
           value={mint}
           onChange={(e) => setMint(e.target.value)}
           placeholder={t.home.inputPlaceholder}
-          className="flex-1 rounded-lg border border-zinc-300 bg-white px-4 py-3 font-mono text-sm text-zinc-900 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+          className="glass-card flex-1 rounded-full px-5 py-3 font-mono text-sm text-zinc-100 outline-none placeholder:text-zinc-500 focus:border-violet-400/50"
           dir="ltr"
           spellCheck={false}
         />
         <button
           type="submit"
           disabled={loading || !mint.trim()}
-          className="rounded-lg bg-zinc-900 px-6 py-3 font-medium text-white transition-colors hover:bg-zinc-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          className="gradient-border shrink-0 disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {loading ? t.home.scanningButton : t.home.scanButton}
+          <span className="flex items-center justify-center rounded-full bg-black px-6 py-3 font-medium text-white transition-colors hover:bg-zinc-900">
+            {loading ? t.home.scanningButton : t.home.scanButton}
+          </span>
         </button>
       </form>
 
       {error && (
-        <div className="mt-4 rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-800 dark:bg-red-950 dark:text-red-300">
+        <div className="mt-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
           {error}
         </div>
       )}
@@ -84,27 +85,24 @@ export default function ScanForm() {
             <span className={`rounded-full border px-3 py-1 text-sm font-semibold ${RISK_STYLES[report.riskLevel]}`}>
               {t.risk[report.riskLevel]}
             </span>
-            <span className="text-lg font-semibold text-zinc-900 dark:text-zinc-100" dir="ltr">
+            <span className="text-lg font-semibold text-zinc-100" dir="ltr">
               {report.totalScore} / {report.maxScore} {t.home.pointsLabel}
             </span>
           </div>
 
           <div className="flex flex-col gap-2">
             {Object.entries(report.checks).map(([id, check]) => (
-              <div
-                key={id}
-                className="rounded-lg border border-zinc-200 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900"
-              >
+              <div key={id} className="glass-card rounded-lg px-4 py-3">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-medium text-zinc-900 dark:text-zinc-100">
+                  <span className="font-medium text-zinc-100">
                     {check.passed ? "✅" : "⚠️"} {t.checks[id as keyof typeof t.checks] ?? id}
                   </span>
-                  <span className="text-sm text-zinc-500 dark:text-zinc-400" dir="ltr">
+                  <span className="text-sm text-zinc-400" dir="ltr">
                     {check.score} / {check.maxScore}
                   </span>
                 </div>
                 {/* Le detail vient de l'API et reste en francais (langue du backend). */}
-                <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400" dir="ltr">
+                <p className="mt-1 text-sm text-zinc-400" dir="ltr">
                   {check.details}
                 </p>
               </div>
@@ -112,7 +110,7 @@ export default function ScanForm() {
           </div>
 
           {report.errors.length > 0 && (
-            <div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300">
+            <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-300">
               {report.errors.length} {t.home.warningsNote}
             </div>
           )}

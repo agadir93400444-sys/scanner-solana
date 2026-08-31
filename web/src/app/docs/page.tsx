@@ -19,35 +19,30 @@ export default function DocsPage() {
   const { t } = useLanguage();
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-4 py-16 sm:py-24">
+    <div className="relative mx-auto flex w-full max-w-3xl flex-col gap-10 px-4 py-16 sm:py-24">
+      <div className="bg-grid pointer-events-none absolute inset-x-0 top-0 -z-10 h-[420px]" />
+
       <div>
-        <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200">
+        <Link href="/" className="text-sm text-zinc-400 hover:text-zinc-100">
           {t.common.backToScanner}
         </Link>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">{t.docs.title}</h1>
-        <p className="mt-2 text-zinc-600 dark:text-zinc-400">{t.docs.intro}</p>
+        <h1 className="mt-4 text-3xl font-bold tracking-tight text-gradient">{t.docs.title}</h1>
+        <p className="mt-2 text-zinc-400">{t.docs.intro}</p>
       </div>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">{t.docs.checksHeading}</h2>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          {t.docs.checksIntro.replace("{max}", String(MAX_SCORE))}
-        </p>
+        <h2 className="text-xl font-semibold text-zinc-50">{t.docs.checksHeading}</h2>
+        <p className="text-sm text-zinc-400">{t.docs.checksIntro.replace("{max}", String(MAX_SCORE))}</p>
         <div className="flex flex-col gap-3">
           {CHECK_ORDER.map((check) => (
-            <div
-              key={check.id}
-              className="rounded-lg border border-zinc-200 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900"
-            >
+            <div key={check.id} className="glass-card rounded-lg px-4 py-3">
               <div className="flex items-center justify-between gap-2">
-                <span className="font-medium text-zinc-900 dark:text-zinc-100">
-                  {t.checks[check.id as keyof typeof t.checks]}
-                </span>
-                <span className="text-sm text-zinc-500 dark:text-zinc-400" dir="ltr">
+                <span className="font-medium text-zinc-100">{t.checks[check.id as keyof typeof t.checks]}</span>
+                <span className="text-sm text-zinc-400" dir="ltr">
                   {check.weight} {t.home.pointsLabel}
                 </span>
               </div>
-              <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+              <p className="mt-1 text-sm text-zinc-400">
                 {t.docs.checkDescriptions[check.id as keyof typeof t.docs.checkDescriptions]}
               </p>
             </div>
@@ -56,9 +51,9 @@ export default function DocsPage() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">{t.docs.riskHeading}</h2>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">{t.docs.riskIntro}</p>
-        <ul className="flex flex-col gap-1 text-sm text-zinc-600 dark:text-zinc-400">
+        <h2 className="text-xl font-semibold text-zinc-50">{t.docs.riskHeading}</h2>
+        <p className="text-sm text-zinc-400">{t.docs.riskIntro}</p>
+        <ul className="flex flex-col gap-1 text-sm text-zinc-400">
           <li>{t.docs.riskLowFull}</li>
           <li>{t.docs.riskMediumFull}</li>
           <li>{t.docs.riskHighFull}</li>
@@ -67,28 +62,28 @@ export default function DocsPage() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">{t.docs.apiHeading}</h2>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">{t.docs.apiIntro}</p>
+        <h2 className="text-xl font-semibold text-zinc-50">{t.docs.apiHeading}</h2>
+        <p className="text-sm text-zinc-400">{t.docs.apiIntro}</p>
         <div className="flex flex-col gap-2" dir="ltr">
-          <pre className="overflow-x-auto rounded-lg bg-zinc-900 px-4 py-3 text-sm text-zinc-100">
+          <pre className="glass-card overflow-x-auto rounded-lg px-4 py-3 text-sm text-zinc-100">
             <code>GET /api/scan/&lt;adresse-du-mint&gt;</code>
           </pre>
-          <pre className="overflow-x-auto rounded-lg bg-zinc-900 px-4 py-3 text-sm text-zinc-100">
+          <pre className="glass-card overflow-x-auto rounded-lg px-4 py-3 text-sm text-zinc-100">
             <code>GET /api/history/&lt;adresse-du-mint&gt;</code>
           </pre>
         </div>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">{t.docs.limitsHeading}</h2>
-        <ul className="flex list-disc flex-col gap-2 pl-5 pr-5 text-sm text-zinc-600 dark:text-zinc-400">
+        <h2 className="text-xl font-semibold text-zinc-50">{t.docs.limitsHeading}</h2>
+        <ul className="flex list-disc flex-col gap-2 pl-5 pr-5 text-sm text-zinc-400">
           <li>{t.docs.limit1}</li>
           <li>{t.docs.limit2}</li>
           <li>{t.docs.limit3}</li>
         </ul>
       </section>
 
-      <p className="text-xs text-zinc-400 dark:text-zinc-600">{t.docs.disclaimer}</p>
+      <p className="text-xs text-zinc-500">{t.docs.disclaimer}</p>
     </div>
   );
 }

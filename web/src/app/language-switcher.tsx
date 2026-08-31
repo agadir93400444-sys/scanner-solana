@@ -14,16 +14,14 @@ export default function LanguageSwitcher() {
   const { locale, setLocale } = useLanguage();
 
   return (
-    <div className="flex gap-1">
+    <div className="glass-card flex gap-1 rounded-full p-1">
       {LANGUAGES.map((lang) => (
         <button
           key={lang.code}
           type="button"
           onClick={() => setLocale(lang.code)}
-          className={`rounded px-2 py-1 text-xs font-medium transition-colors ${
-            locale === lang.code
-              ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-              : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+            locale === lang.code ? "bg-white/10 text-white" : "text-zinc-400 hover:text-zinc-100"
           }`}
         >
           {lang.label}

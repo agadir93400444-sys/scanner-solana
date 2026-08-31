@@ -4,6 +4,13 @@ export interface Dictionary {
   common: {
     backToScanner: string;
   };
+  support: {
+    title: string;
+    text: string;
+    copy: string;
+    copied: string;
+    thanks: string;
+  };
   home: {
     title: string;
     subtitle: string;
@@ -66,6 +73,13 @@ export const translations: Record<Locale, Dictionary> = {
   fr: {
     common: {
       backToScanner: "← Retour au scanner",
+    },
+    support: {
+      title: "Soutenir le projet",
+      text: "Si cet outil t'a été utile, tu peux faire un don à cette adresse Solana :",
+      copy: "Copier",
+      copied: "Copié !",
+      thanks: "Merci pour ton soutien 🙏",
     },
     home: {
       title: "Token Scanner",
@@ -144,6 +158,13 @@ export const translations: Record<Locale, Dictionary> = {
     common: {
       backToScanner: "← Back to scanner",
     },
+    support: {
+      title: "Support the project",
+      text: "If this tool was useful to you, you can send a donation to this Solana address:",
+      copy: "Copy",
+      copied: "Copied!",
+      thanks: "Thanks for your support 🙏",
+    },
     home: {
       title: "Token Scanner",
       subtitle:
@@ -220,6 +241,13 @@ export const translations: Record<Locale, Dictionary> = {
     common: {
       backToScanner: "← العودة إلى الماسح",
     },
+    support: {
+      title: "دعم المشروع",
+      text: "إذا كانت هذه الأداة مفيدة لك، يمكنك إرسال تبرع إلى عنوان سولانا هذا:",
+      copy: "نسخ",
+      copied: "تم النسخ!",
+      thanks: "شكراً على دعمك 🙏",
+    },
     home: {
       title: "Token Scanner",
       subtitle:
@@ -295,6 +323,13 @@ export const translations: Record<Locale, Dictionary> = {
   zh: {
     common: {
       backToScanner: "← 返回扫描器",
+    },
+    support: {
+      title: "支持本项目",
+      text: "如果这个工具对你有帮助，欢迎向这个 Solana 地址捐赠：",
+      copy: "复制",
+      copied: "已复制！",
+      thanks: "感谢你的支持 🙏",
     },
     home: {
       title: "Token Scanner",
