@@ -15,11 +15,31 @@ const CHECK_ORDER = [
 
 const MAX_SCORE = CHECK_ORDER.reduce((sum, c) => sum + c.weight, 0);
 
+const FAQ_KEYS = ["1", "2", "3", "4", "5", "6"] as const;
+
 export default function DocsPage() {
   const { t } = useLanguage();
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_KEYS.map((n) => ({
+      "@type": "Question",
+      name: t.docs.faq[`q${n}` as keyof typeof t.docs.faq],
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: t.docs.faq[`a${n}` as keyof typeof t.docs.faq],
+      },
+    })),
+  };
+
   return (
     <div className="relative mx-auto flex w-full max-w-3xl flex-col gap-10 px-4 py-16 sm:py-24">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="bg-grid pointer-events-none absolute inset-x-0 top-0 -z-10 h-[420px]" />
 
       <div>
@@ -71,6 +91,18 @@ export default function DocsPage() {
           <pre className="glass-card overflow-x-auto rounded-lg px-4 py-3 text-sm text-zinc-100">
             <code>GET /api/history/&lt;adresse-du-mint&gt;</code>
           </pre>
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="text-xl font-semibold text-zinc-50">{t.docs.faq.heading}</h2>
+        <div className="flex flex-col gap-3">
+          {FAQ_KEYS.map((n) => (
+            <div key={n} className="glass-card rounded-lg px-4 py-3">
+              <h3 className="font-medium text-zinc-100">{t.docs.faq[`q${n}` as keyof typeof t.docs.faq]}</h3>
+              <p className="mt-1 text-sm text-zinc-400">{t.docs.faq[`a${n}` as keyof typeof t.docs.faq]}</p>
+            </div>
+          ))}
         </div>
       </section>
 

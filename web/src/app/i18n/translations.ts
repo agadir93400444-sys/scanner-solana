@@ -66,6 +66,21 @@ export interface Dictionary {
       tokenExtensions: string;
       earlySniperConcentration: string;
     };
+    faq: {
+      heading: string;
+      q1: string;
+      a1: string;
+      q2: string;
+      a2: string;
+      q3: string;
+      a3: string;
+      q4: string;
+      a4: string;
+      q5: string;
+      a5: string;
+      q6: string;
+      a6: string;
+    };
   };
 }
 
@@ -151,6 +166,21 @@ export const translations: Record<Locale, Dictionary> = {
         earlySniperConcentration:
           "Pour les pools récents (< 7 jours) et peu actifs, analyse les premières transactions pour détecter si un petit nombre de wallets a raflé le supply au lancement (sniping/bundling). Neutre pour les tokens plus anciens ou à fort volume - non vérifiable de façon fiable dans ces cas.",
       },
+      faq: {
+        heading: "Questions fréquentes",
+        q1: "Comment savoir si un token Solana est fiable ?",
+        a1: "Colle l'adresse du mint du token ci-dessus et Token Scanner effectue 7 vérifications automatisées - mint & freeze authority, concentration des holders, verrouillage de LP, mutabilité des metadata, extensions Token-2022, et concentration des acheteurs précoces - puis calcule un score de risque. Aucun outil ne peut garantir une sécurité à 100%, mais ces checks détectent les schémas les plus courants de rug pull et de honeypot.",
+        q2: "Qu'est-ce qu'un rug pull ?",
+        a2: "Un rug pull, c'est quand le créateur d'un token retire la liquidité du pool ou mint des tokens en illimité, faisant chuter le prix à zéro et laissant les holders avec des tokens sans valeur. Les checks mint authority et verrouillage de LP de Token Scanner sont conçus pour détecter ça avant que ça arrive.",
+        q3: "Qu'est-ce qu'un token honeypot ?",
+        a3: "Un honeypot est un token que tu peux acheter mais pas revendre - généralement parce que la freeze authority est encore active, ou qu'une taxe de transfert cachée / un permanent delegate bloque ou draine les ventes. Les checks freeze authority et extensions Token-2022 ciblent exactement ça.",
+        q4: "Un score élevé garantit-il que le token est sûr ?",
+        a4: "Non. Un score élevé signifie que les signaux courants de rug pull et de honeypot on-chain n'ont pas été détectés - ce n'est pas un conseil financier et ça ne remplace pas tes propres recherches (DYOR). Voir la section Limites connues ci-dessous pour ce que cet outil ne peut pas détecter.",
+        q5: "Token Scanner est-il gratuit ?",
+        a5: "Oui. L'interface web et l'API sous-jacente sont gratuites et ouvertes - voir la section API ci-dessous pour l'interroger directement.",
+        q6: "Comment vérifier moi-même la mint authority d'un token Solana ?",
+        a6: "Colle l'adresse du mint dans le scanner ci-dessus - le résultat 'Mint authority' t'indique si elle a été révoquée. Tu peux aussi interroger l'API directement via GET /api/scan/<adresse-du-mint>.",
+      },
     },
   },
 
@@ -233,6 +263,21 @@ export const translations: Record<Locale, Dictionary> = {
           "Detects risky Token-2022 extensions: permanent delegate (direct theft of a holder's tokens), transfer hook (arbitrary code on every transfer), hidden transfer tax, accounts frozen by default.",
         earlySniperConcentration:
           "For recent (< 7 days) and low-activity pools, analyzes the earliest transactions to detect whether a small number of wallets grabbed most of the supply at launch (sniping/bundling). Neutral for older or high-volume tokens - not reliably verifiable in those cases.",
+      },
+      faq: {
+        heading: "Frequently asked questions",
+        q1: "How do I know if a Solana token is safe?",
+        a1: "Paste the token's mint address above and Token Scanner runs 7 automated checks - mint & freeze authority, holder concentration, LP lock, metadata mutability, Token-2022 extensions, and early sniper concentration - then gives you a risk score. No tool can guarantee 100% safety, but these checks catch the most common rug pull and honeypot patterns.",
+        q2: "What is a rug pull?",
+        a2: "A rug pull is when a token's creator drains the liquidity pool or mints unlimited new tokens, crashing the price to zero and leaving holders with worthless tokens. Token Scanner's mint authority and LP lock checks are designed to catch this before it happens.",
+        q3: "What is a honeypot token?",
+        a3: "A honeypot is a token you can buy but can't sell - usually because the freeze authority is still active, or a hidden transfer tax/permanent delegate blocks or drains sell transactions. The freeze authority and Token-2022 extensions checks target exactly this.",
+        q4: "Does a high score guarantee the token is safe?",
+        a4: "No. A high score means the common on-chain rug pull and honeypot signals weren't detected - it's not financial advice and doesn't replace your own research (DYOR). See the Known limitations section below for what this tool can't catch.",
+        q5: "Is Token Scanner free to use?",
+        a5: "Yes. Both the web interface and the underlying API are free and open - see the API section below to query it directly.",
+        q6: "How do I check the mint authority of a Solana token myself?",
+        a6: "Paste the token's mint address into the scanner above - the 'Mint authority' result tells you whether it's been revoked. You can also query the API directly at GET /api/scan/<mint-address>.",
       },
     },
   },
@@ -317,6 +362,21 @@ export const translations: Record<Locale, Dictionary> = {
         earlySniperConcentration:
           "بالنسبة للمجمّعات الحديثة (أقل من 7 أيام) والقليلة النشاط، يحلل المعاملات الأولى لاكتشاف ما إذا كان عدد قليل من المحافظ قد استحوذ على العرض عند الإطلاق (sniping/bundling). محايد بالنسبة للتوكنات الأقدم أو ذات النشاط المرتفع - غير قابل للتحقق بشكل موثوق في هذه الحالات.",
       },
+      faq: {
+        heading: "الأسئلة الشائعة",
+        q1: "كيف أعرف إذا كان توكن سولانا آمناً؟",
+        a1: "الصق عنوان mint الخاص بالتوكن أعلاه، وسيقوم Token Scanner بإجراء 7 فحوصات آلية - صلاحية mint وfreeze، تركّز الحائزين، قفل السيولة (LP)، قابلية تعديل البيانات الوصفية، امتدادات Token-2022، وتركّز المشترين الأوائل - ثم يعطيك درجة مخاطرة. لا توجد أداة تضمن أماناً بنسبة 100%، لكن هذه الفحوصات ترصد أكثر أنماط الاحتيال (rug pull) والفخاخ (honeypot) شيوعاً.",
+        q2: "ما هو الـ rug pull؟",
+        a2: "الـ rug pull هو عندما يسحب منشئ التوكن سيولة المجمّع أو يصدر توكنات بلا حدود، مما يُسقط السعر إلى الصفر ويترك الحائزين بتوكنات عديمة القيمة. فحصا صلاحية mint وقفل السيولة في Token Scanner مصمَّمان لرصد هذا قبل حدوثه.",
+        q3: "ما هو توكن الـ honeypot؟",
+        a3: "الـ honeypot هو توكن يمكنك شراؤه لكن لا يمكنك بيعه - عادةً لأن صلاحية التجميد (freeze) ما تزال فعالة، أو لأن ضريبة تحويل مخفية أو permanent delegate يمنع أو يستنزف عمليات البيع. فحصا صلاحية التجميد وامتدادات Token-2022 يستهدفان هذا بالتحديد.",
+        q4: "هل الدرجة المرتفعة تضمن أن التوكن آمن؟",
+        a4: "لا. الدرجة المرتفعة تعني أن إشارات الاحتيال والفخاخ الشائعة على السلسلة لم تُكتشف - هذه ليست نصيحة مالية ولا تغني عن أبحاثك الخاصة (DYOR). راجع قسم القيود المعروفة أدناه لمعرفة ما لا يمكن لهذه الأداة رصده.",
+        q5: "هل Token Scanner مجاني؟",
+        a5: "نعم. واجهة الويب وواجهة برمجة التطبيقات (API) الأساسية مجانيتان ومفتوحتان - راجع قسم API أدناه للاستعلام المباشر.",
+        q6: "كيف أتحقق بنفسي من صلاحية mint لتوكن سولانا؟",
+        a6: "الصق عنوان الـ mint في الماسح أعلاه - نتيجة 'صلاحية الإصدار (Mint Authority)' تخبرك إن كانت قد أُلغيت. يمكنك أيضاً الاستعلام مباشرة عبر GET /api/scan/<عنوان-mint>.",
+      },
     },
   },
 
@@ -396,6 +456,21 @@ export const translations: Record<Locale, Dictionary> = {
           "检测高风险的 Token-2022 扩展：永久代理（permanent delegate，可直接盗取持币者代币）、转账钩子（transfer hook，每次转账执行任意代码）、隐藏转账税，以及默认冻结账户。",
         earlySniperConcentration:
           "对于较新（不足 7 天）且交易量较低的资金池，分析最早的交易以检测是否有少数钱包在代币上线时抢购了大部分供应量（狙击/捆绑交易）。对于较旧或交易量较高的代币，此项为中性 - 在这些情况下无法可靠验证。",
+      },
+      faq: {
+        heading: "常见问题",
+        q1: "如何判断一个 Solana 代币是否安全？",
+        a1: "在上方粘贴代币的 mint 地址，Token Scanner 会运行 7 项自动检查——铸造权限与冻结权限、持币集中度、流动性锁定、元数据可变性、Token-2022 扩展，以及早期买家集中度——然后给出风险评分。没有任何工具能保证 100% 安全，但这些检查能识别最常见的跑路（rug pull）和蜜罐（honeypot）模式。",
+        q2: "什么是跑路（rug pull）？",
+        a2: "跑路是指代币创建者抽走流动性池资金或无限增发代币，导致价格暴跌至零，持币者手中的代币变得一文不值。Token Scanner 的铸造权限和流动性锁定检查正是为了在这种情况发生前发现它。",
+        q3: "什么是蜜罐（honeypot）代币？",
+        a3: "蜜罐代币是指你能买入但无法卖出的代币——通常是因为冻结权限仍然有效，或隐藏的转账税/永久代理阻止或抽走了卖出交易。冻结权限和 Token-2022 扩展检查正是针对这一点。",
+        q4: "高分是否保证代币安全？",
+        a4: "不能。高分只是意味着常见的链上跑路和蜜罐信号未被检测到——这不构成财务建议，也不能替代你自己的研究（DYOR）。请参阅下方的已知局限部分，了解本工具无法检测的情况。",
+        q5: "Token Scanner 是免费的吗？",
+        a5: "是的。网页界面和底层 API 都是免费开放的——请参阅下方 API 部分直接调用。",
+        q6: "如何自己检查 Solana 代币的铸造权限？",
+        a6: "在上方扫描器中粘贴代币的 mint 地址——铸造权限（Mint Authority）结果会告诉你它是否已被撤销。你也可以直接通过 GET /api/scan/<mint地址> 调用 API。",
       },
     },
   },
